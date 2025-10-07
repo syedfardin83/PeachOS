@@ -9,5 +9,5 @@ start:
 
     jmp $
 
-times 510-($-$$) db 0 ; If 510 bytes are not used, fill rest with 0.
+times 510-($-$$) db 0 ; If 510 bytes are not used, fill rest with 0. (Assembler directive)
 dw 0xaa55 ; boot signature
