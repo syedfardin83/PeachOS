@@ -9,5 +9,7 @@ start:
 
     jmp $
 
+;These are all assembler directives.
 times 510-($-$$) db 0 ; If 510 bytes are not used, fill rest with 0. (Assembler directive)
-dw 0xaa55 ; boot signature
+;db is define binary - emits a byte into the output file
+dw 0xaa55 ; boot signature ; dw is define word
