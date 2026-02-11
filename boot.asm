@@ -5,7 +5,7 @@ start:
     mov ah, 0x0e
     mov al, 'A'
     mov bx, 0
-    int 0x10
+    int 0x10 ; Calling the BIOS interrupt
 
     jmp $
 
