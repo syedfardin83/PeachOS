@@ -2,14 +2,14 @@ org 0x7c00
 bits 16
 
 start:
-    mov si,message
+    mov si,message ; moves the address of message in si
     call print
     jmp $
 
 print:
     mov bx, 0
     .loop:
-        lodsb
+        lodsb ;loads the value of si in al and increments si
         cmp al,0
         je .done
         call print_char

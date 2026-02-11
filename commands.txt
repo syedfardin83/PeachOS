@@ -1,0 +1,5 @@
+NASM compilation command:
+nasm -f bin ./boot.asm -o boot.bin
+
+Loading the output binary into a virtual drive and emulating in Qemu:
+qemu-system-x86_64 -hda ./boot.bin
