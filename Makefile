@@ -1,2 +1,2 @@
 all:
-	nasm -f bin ./prot.asm -o ./prot.bin
+	nasm -f bin ./src/boot.asm -o ./bin/boot.bin
