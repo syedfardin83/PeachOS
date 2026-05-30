@@ -70,7 +70,7 @@ ata_lba_read:
     mov ebx,eax ;Backup LBA
     shr eax,24
     or eax,0xe0
-    mov dx,0x1f6
+    mov dx,0x01f6
     out dx, al
 
     mov eax, ecx
@@ -94,7 +94,7 @@ ata_lba_read:
     mov dx,0x1f7
     mov al,0x20
     out dx,al
-
+     
 .next_sector:
     push ecx
 
