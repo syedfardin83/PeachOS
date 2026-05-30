@@ -15,14 +15,14 @@ all: ./bin/boot.bin ./bin/kernel.bin
 ./bin/kernel.bin: $(FILES)
 #combining all files to an intermidiate elf
 	i686-elf-ld -g -relocatable $(FILES) -o ./build/kernelfull.o
-#generating the final binary
+#generating the final binary (linking happens here)
 	i686-elf-gcc $(FLAGS) -T ./src/linker.ld -o ./bin/kernel.bin -ffreestanding -O0 -nostdlib ./build/kernelfull.o
 
 ./build/kernel.asm.o: ./src/kernel.asm
 # nasm converts kernel.asm to elf file which has debugger flags and linking info
 	nasm -f elf -g ./src/kernel.asm -o ./build/kernel.asm.o
 
-./build/kernel.o : ./src/kernel.clean
+./build/kernel.o : ./src/kernel.c
 	i686-elf-gcc $(INCLUDES) $(FLAGS) -std=gnu99 -c ./src/kernel.c -o ./build/kernel.o
 
 clean:
