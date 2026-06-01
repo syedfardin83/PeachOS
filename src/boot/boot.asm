@@ -64,7 +64,7 @@ load32:
     mov ecx,100
     mov edi,0x0100000
     call ata_lba_read
-    jmp CODE_SEG:0x0100000
+    jmp CODE_SEG:0x0100000 ; jumps to kernel asm code
 
 ata_lba_read:
     mov ebx,eax ;Backup LBA

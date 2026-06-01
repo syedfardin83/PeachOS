@@ -20,7 +20,7 @@ _start:
     or al, 2
     out 0x92, al
 
-    call kernel_main
+    call kernel_main ; jumps to kernel c code
 
     jmp $
 

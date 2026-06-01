@@ -1,7 +1,9 @@
 #include "kernel.h"
+#include "idt.h"
 
 #include <stdint.h>
 #include <stddef.h>
+
 
 uint16_t* video_mem = 0;
 uint16_t terminal_x=0;
@@ -52,8 +54,13 @@ void print(const char* str){
     }
 }
 
+// will be called by kernel.asm
 void kernel_main(){
     terminal_initialize();
 
     print("Hello world!\nThis is a test.");
+
+    // Initialize IDT
+    idt_init();
+
 }

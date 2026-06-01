@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "PeachOS-Config",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/src",
+                "${workspaceFolder}/src/idt",
+                "${workspaceFolder}/src/memory"
+            ],
+            "defines": [],
+            "compilerPath": "",
+            "cStandard": "gnu99",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x86"
+        }
+    ],
+    "version": 4
+}
