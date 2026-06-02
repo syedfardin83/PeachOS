@@ -20,6 +20,18 @@ _start:
     or al, 2
     out 0x92, al
 
+    ;Remapping PIC
+    mov al, 00010001b
+    out 0x20, al ; Put Master PIC in config mode
+
+    mov al, 0x20 ; Set IRQ 0 to 0x20
+    out 0x21, al 
+
+    mov al,00000001b
+    out 0x21, al
+
+    sti
+
     call kernel_main ; jumps to kernel c code
 
     jmp $
