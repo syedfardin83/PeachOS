@@ -44,8 +44,8 @@ Cloning and running the kernel utilizes an automated `Makefile` compilation pipe
 
 ```bash
 # Clone the repository
-git clone [https://github.com/yourusername/peach-os.git](https://github.com/yourusername/peach-os.git)
-cd peach-os
+git clone https://github.com/syedfardin83/PeachOS.git
+cd PeachOS
 
 # Compile assembly wrappers, compile C subsystems, and link into a flat binary image
 ./build.sh
