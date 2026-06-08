@@ -16,7 +16,7 @@ idt_load:
     pop ebp
     ret
 
-int21h:
+int21h:  ; Assembly wrapper function for int21h
     cli
     pushad
     call int21h_handler
