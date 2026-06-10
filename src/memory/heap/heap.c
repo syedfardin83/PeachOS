@@ -52,8 +52,53 @@ static uint32_t heap_align_value_to_upper(uint32_t val){
 
 }
 
-int heap_find_start_block(stuct heap* heap, uint32_t total_blocks){
-    
+static int heap_get_entry_type(HEAP_BLOCK_TABLE_ENTRY entry){
+    return entry & 0x0f;
+}
+
+int heap_find_start_block(struct heap* heap, uint32_t total_blocks){
+    struct heap_table* table = heap->table;
+
+    int bc=0;
+    int bs=-1;
+
+    for(size_t i=0;i<(table->total)*PEACH_OS_BLOCK_SIZE_BYTES;i++){
+        if(heap_get_entry_type(table->entries[i])!=HEAP_BLOCK_TABLE_ENTRY_FREE){
+            bc = 0;
+            bs = -1;
+            continue;
+        }
+        if(bs==-1){
+            bs=i;
+        }
+        bc++;
+        if(bc==total_blocks){
+            break;
+        }
+    }
+    if(bs==-1){
+        return -ENOMEM;
+    }
+    return bs;
+}
+
+void* heap_block_to_addr(struct heap* heap, int start_block){
+    return heap->saddr + start_block*PEACH_OS_BLOCK_SIZE_BYTES;
+}
+
+void heap_mark_blocks_taken(struct heap* heap, int start_block, int total_blocks){
+    HEAP_BLOCK_TABLE_ENTRY entry;
+    if(total_blocks==1){
+        heap->table->entries[start_block] = HEAP_BLOCK_IS_FIRST | HEAP_BLOCK_TABLE_ENTRY_TAKEN;
+        return;
+    }
+    else{
+        for(int i=1;i<=total_blocks;i++){
+            entry = HEAP_BLOCK_TABLE_ENTRY_TAKEN;
+            if(i<total_blocks) entry |= HEAP_BLOCK_HAS_NEXT;
+            heap->table->entries[start_block+i] = entry;
+        }
+    }
 }
 
 void* heap_malloc_blocks(struct heap* heap, uint32_t total_blocks){

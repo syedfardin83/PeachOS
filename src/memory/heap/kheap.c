@@ -19,3 +19,7 @@ void kheap_init(){
         print("\nSucessfully initialized kernel heap!");
     }
 }
+
+void* kmalloc(size_t size){
+    return heap_malloc(&kernel_heap, PEACH_OS_HEAP_SIZE_BYTES);
+}

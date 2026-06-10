@@ -1,6 +1,7 @@
 #include "kernel.h"
 #include "idt.h"
 #include "io.h"
+#include "kheap.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -61,9 +62,17 @@ void kernel_main(){
 
     print("Hello world!\nThis is a test.");
 
+    //  Kernel Heap
+    kheap_init();
+    
+
     // Initialize IDT
     idt_init();
 
+    void* ptr1 = kmalloc(5);
+    void* ptr2 = kmalloc(5000);
+
+    if(ptr1 || ptr2);
     
 
 }
