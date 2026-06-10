@@ -14,8 +14,8 @@
 typedef unsigned char HEAP_BLOCK_TABLE_ENTRY;
 
 struct heap_table{
-    HEAP_BLOCK_TABLE_ENTRY* entries;
-    size_t total;
+    HEAP_BLOCK_TABLE_ENTRY* entries; // Each entry is 8 bits (1 byte) and represents its respective block(4096 bytes)
+    size_t total;   //number of entries
 };
 
 struct heap{
