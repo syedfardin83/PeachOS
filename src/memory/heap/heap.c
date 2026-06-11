@@ -13,19 +13,21 @@ static int heap_validate_table(void* ptr, void* end, struct heap_table* table){
     return res;
 }
 
-static bool heap_validate_alignment(void* ptr){
-    return ((unsigned int)ptr % PEACH_OS_BLOCK_SIZE_BYTES) == 0;
+static int heap_validate_alignment(void* ptr){
+    if(((unsigned int)ptr % PEACH_OS_BLOCK_SIZE_BYTES) == 0){
+        return 1;
+    }else return 0;
 }
 
 int heap_create(struct heap* heap, void* ptr, void* end, struct heap_table* table){
     int res = 0;
 
-    if(!heap_validate_alignment(ptr) || !heap_validate_alignment(end)){
-        res = -EINVARG;
-        goto out;
-    }
+    // if(!heap_validate_alignment(ptr) || !heap_validate_alignment(end)){
+    //     res = -EINVARG;
+    //     goto out;
+    // }
 
-    memset(heap, 0, sizeof(heap));
+    memset(heap, 0, sizeof(struct heap));
 
     heap->saddr=ptr;
     heap->table=table;
@@ -35,7 +37,8 @@ int heap_create(struct heap* heap, void* ptr, void* end, struct heap_table* tabl
         goto out;
     }
 
-    size_t table_size = PEACH_OS_BLOCK_SIZE_BYTES * table->total;
+    table->total = ((int)(end-ptr))/PEACH_OS_BLOCK_SIZE_BYTES;
+    size_t table_size = table->total;
     memset(table->entries,HEAP_BLOCK_TABLE_ENTRY_FREE,table_size);
 
 out:
@@ -62,7 +65,7 @@ int heap_find_start_block(struct heap* heap, uint32_t total_blocks){
     int bc=0;
     int bs=-1;
 
-    for(size_t i=0;i<(table->total)*PEACH_OS_BLOCK_SIZE_BYTES;i++){
+    for(size_t i=0;i<(table->total);i++){
         if(heap_get_entry_type(table->entries[i])!=HEAP_BLOCK_TABLE_ENTRY_FREE){
             bc = 0;
             bs = -1;

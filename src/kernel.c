@@ -59,12 +59,11 @@ void print(const char* str){
 // will be called by kernel.asm
 void kernel_main(){
     terminal_initialize();
-
-    print("Hello world!\nThis is a test.");
+    print("\nTerminal initalized.");
 
     //  Kernel Heap
     kheap_init();
-    
+    print("\nKheap initialized.");
 
     // Initialize IDT
     idt_init();
