@@ -59,6 +59,10 @@ static int heap_get_entry_type(HEAP_BLOCK_TABLE_ENTRY entry){
     return entry & 0x0f;
 }
 
+int heap_addr_to_block(struct heap* heap, void* ptr){
+    return ((int)(ptr-heap->saddr))/PEACH_OS_BLOCK_SIZE_BYTES;
+}
+
 int heap_find_start_block(struct heap* heap, uint32_t total_blocks){
     struct heap_table* table = heap->table;
 
@@ -104,6 +108,17 @@ void heap_mark_blocks_taken(struct heap* heap, int start_block, int total_blocks
     }
 }
 
+void heap_mark_blocks_free(struct heap* heap, int starting_block){
+    struct heap_table* table = heap->table; int has_next = 1;
+    for(int i=starting_block;i<table->total;i++){
+        HEAP_BLOCK_TABLE_ENTRY entry = table->entries[i];
+
+        if(!((HEAP_BLOCK_HAS_NEXT&entry)==1)) has_next=0;
+        table->entries[i] = HEAP_BLOCK_TABLE_ENTRY_FREE;
+        if(has_next==0) break;
+    }
+}
+
 void* heap_malloc_blocks(struct heap* heap, uint32_t total_blocks){
     void* addr = 0x00;
 
@@ -131,7 +146,7 @@ void* heap_malloc(struct heap* heap,size_t size){
 int heap_free(struct heap* heap, void* ptr){
     int res = 0;
 
-
+    heap_mark_blocks_free(heap,heap_addr_to_block(heap,ptr));
 
     return res;
 }

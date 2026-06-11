@@ -68,10 +68,13 @@ void kernel_main(){
     // Initialize IDT
     idt_init();
 
-    void* ptr1 = kmalloc(5);
+    void* ptr1 = kmalloc(50);
     void* ptr2 = kmalloc(5000);
+    void* ptr3 = kmalloc(5600);
+    kfree(ptr1);
+    void* ptr4 = kmalloc(50);
 
-    if(ptr1 || ptr2);
+    if(ptr1 || ptr2 || ptr3 || ptr4);
     
 
 }
