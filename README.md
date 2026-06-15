@@ -4,6 +4,9 @@ A custom, bare-metal 32-bit x86 Protected Mode operating system built completely
 
 This project is based on a *Udemy course* by [Daniel McCarthy - "*Developing a multi-threaded kernel from scratch*"](https://www.udemy.com/course/developing-a-multithreaded-kernel-from-scratch/)
 
+Other sources:
+https://wiki.osdev.org/
+
 ---
 
 ## 🚀 Project Vision
@@ -56,4 +59,4 @@ cd PeachOS
 ./build.sh
 
 # Flash the resulting os.bin image straight into QEMU for emulation
-qemu-system-x86_64 -hda ./bin/os.bin -S
+qemu-system-x86_64 -hda ./bin/os.bin
