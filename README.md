@@ -14,7 +14,12 @@ PeachOS is a deep-dive engineering journey to strip away modern operating system
 
 ## 🛠️ System Architecture & Docs
 
-The documentation to the project will be uploaded soon.
+The current documentation is organized in the `docs/` folder:
+
+- [CPU, Assembly, and Binary](docs/general.md)
+- [BIOS and Boot Flow](docs/bios.md)
+- [Bootloader and GDT](docs/boot.md)
+- [Makefile and Linker Script](docs/mk-ld.md)
 
 ---
 
@@ -26,7 +31,7 @@ The documentation to the project will be uploaded soon.
 - [x] Interrupt Descriptor Table (IDT) Wrapper Gates (Assembly Assembly -> C Handshake)
 - [x] Dual Intel 8259 PIC Hardware Vector Remapping (Base Shift to `0x20`)
 - [x] Subsystem Integration: Video Text Buffer Screen Pointer & PS/2 Keyboard Driver
-- [ ] Heap implimentation and dynamic memory allocation
+- [x] Heap implimentation and dynamic memory allocation
 - [ ] Memory Management: Paging Engine & Two-Tier Address Translation Tables
 - [ ] Multitasking: Hardware Task State Segments (TSS) & Kernel Context Switcher
 

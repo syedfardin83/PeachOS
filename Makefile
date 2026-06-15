@@ -15,7 +15,7 @@ all: ./bin/boot.bin ./bin/kernel.bin
 	nasm -f bin ./src/boot/boot.asm -o ./bin/boot.bin 
 
 ./bin/kernel.bin: $(FILES)
-#combining all files to single intermidiate elf
+#combining all object files to single intermidiate elf
 	i686-elf-ld -g -relocatable $(FILES) -o ./build/kernelfull.o
 #generating the final binary (linking happens here)
 	i686-elf-gcc $(FLAGS) -T ./src/linker.ld -o ./bin/kernel.bin -ffreestanding -O0 -nostdlib ./build/kernelfull.o
