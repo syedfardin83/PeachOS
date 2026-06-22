@@ -17,4 +17,10 @@ struct page_directory{
     uint32_t* entries;
 };
 
+
+// asm functions
+void paging_enable();
+// void paging_load_directory(uint32_t*);
+
+void paging_switch(uint32_t* directory);
 #endif
