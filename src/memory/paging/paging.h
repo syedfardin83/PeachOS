@@ -13,14 +13,14 @@
 #define PAGING_TOTAL_ENTRIES_PER_TABLE 1024
 #define PAGING_PAGE_SIZE 4096
 
-struct page_directory{
+struct paging_4gb_chunk{
     uint32_t* entries;
 };
 
+struct paging_4gb_chunk* paging_new_4gb(uint8_t flags); 
 
 // asm functions
 void paging_enable();
-// void paging_load_directory(uint32_t*);
 
 void paging_switch(uint32_t* directory);
 #endif

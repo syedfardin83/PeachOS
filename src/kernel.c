@@ -2,6 +2,7 @@
 #include "idt.h"
 #include "io.h"
 #include "kheap.h"
+#include "paging.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -57,6 +58,7 @@ void print(const char* str){
 }
 
 // will be called by kernel.asm
+struct paging_4gb_chunk* kernel_chunk=0;
 void kernel_main(){
     terminal_initialize();
     print("\nTerminal initalized.");
@@ -68,14 +70,14 @@ void kernel_main(){
     // Initialize IDT
     idt_init();
 
+    //  Paging setup
+    kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
+    paging_switch(kernel_chunk->entries);
+    paging_enable();
+
     enable_interrupts(); 
     
-    void* ptr1 = kmalloc(50);
-    void* ptr2 = kmalloc(5000);
-    void* ptr3 = kmalloc(5600);
-    kfree(ptr1);
-    void* ptr4 = kmalloc(50);
 
-    if(ptr1 || ptr2 || ptr3 || ptr4);
+
 
 }
