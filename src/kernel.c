@@ -74,12 +74,20 @@ void kernel_main(){
     kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
     paging_switch(kernel_chunk->entries);
 
-    char* ptr = kzalloc(4096);
-    paging_set(kernel_chunk->entries,(void*)0x1000, (uint32_t)ptr | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
+    char* ptr1 = kzalloc(4096);
+    paging_set(kernel_chunk->entries,(void*)0x1000,(uint32_t)ptr1 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
 
     paging_enable();
 
+    
     enable_interrupts(); 
     
+    char* ptr2 = (char*)0x1000;
+    ptr2[0]='A';
+    ptr2[1]='B';
+    ptr2[2]='\0';
+
+    print(ptr1);
+    print(ptr2);
 
 }
