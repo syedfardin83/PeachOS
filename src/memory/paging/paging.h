@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
+
+#include "status.h"
 
 #define PAGING_IS_PRESENT      0b00000001
 #define PAGING_ACCESS_FROM_ALL 0b00000100
@@ -23,4 +26,9 @@ struct paging_4gb_chunk* paging_new_4gb(uint8_t flags);
 void paging_enable();
 
 void paging_switch(uint32_t* directory);
+
+int paging_get_indexes(void* virtual_addr, uint32_t* directory_index_out, uint32_t* table_index_out);
+bool paging_is_aligned(void* addr);
+int paging_set(uint32_t* directory, void* virt, uint32_t val);
+
 #endif

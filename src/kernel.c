@@ -73,11 +73,13 @@ void kernel_main(){
     //  Paging setup
     kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
     paging_switch(kernel_chunk->entries);
+
+    char* ptr = kzalloc(4096);
+    paging_set(kernel_chunk->entries,(void*)0x1000, (uint32_t)ptr | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
+
     paging_enable();
 
     enable_interrupts(); 
     
-
-
 
 }
