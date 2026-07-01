@@ -60,3 +60,5 @@ cd PeachOS
 
 # Flash the resulting os.bin image straight into QEMU for emulation
 qemu-system-x86_64 -hda ./bin/os.bin
+
+```
