@@ -3,6 +3,7 @@
 #include "io.h"
 #include "kheap.h"
 #include "paging.h"
+#include "./disk/disk.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -79,15 +80,12 @@ void kernel_main(){
 
     paging_enable();
 
-    
     enable_interrupts(); 
     
-    char* ptr2 = (char*)0x1000;
-    ptr2[0]='A';
-    ptr2[1]='B';
-    ptr2[2]='\0';
+    char buf[512];
+    disk_read_sector(0,1,buf);
 
-    print(ptr1);
-    print(ptr2);
+    int a = 10;
+    a++;
 
 }
