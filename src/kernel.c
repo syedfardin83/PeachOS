@@ -80,12 +80,15 @@ void kernel_main(){
 
     paging_enable();
 
-    enable_interrupts(); 
-    
-    char buf[512];
+    disk_search_and_init();
+
+    // char* buf = kzalloc(512);
+    char buf[512]={0};
     disk_read_sector(0,1,buf);
 
     int a = 10;
     a++;
+    enable_interrupts(); 
+    
 
 }

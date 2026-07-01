@@ -11,4 +11,6 @@
 #define PEACH_OS_HEAP_ADDRESS         0x01000000
 #define PEACH_OS_HEAP_TABLE_ADDRESS   0x00007e00
 
+#define PEACH_OS_SECTOR_SIZE          512
+
 #endif
