@@ -7,20 +7,30 @@
 struct disk disk;
 
 int disk_read_sector(int lba, int total, void* buf){
-    int res = 0;
+    if (total <= 0 || total > 256) {
+        return -EIO;
+    }
 
-    outb(0x1f6, (lba>>24)|0xe0);
-    outb(0x1f2,total);
+    while (insb(0x1f7) & 0x80) {
+    }
+
+    outb(0x1f6, 0xE0 | ((lba >> 24) & 0x0F));
+    outb(0x1f2, total == 256 ? 0 : (unsigned char)total);
     outb(0x1f3,(unsigned char)(lba & 0xff));
-    outb(0x1f4,(unsigned char)(lba>>8));
-    outb(0x1f5,(unsigned char)(lba>>16));
+    outb(0x1f4,(unsigned char)((lba >> 8) & 0xFF));
+    outb(0x1f5,(unsigned char)((lba >> 16) & 0xFF));
     outb(0x1f7,0x20);
 
     unsigned short *ptr = (unsigned short *)buf;
 
     for(int i=0;i<total;i++){
-        char c = insb(0x1f7);
-        while(!(c&0x08)) c = insb(0x1f7);
+        unsigned char c = insb(0x1f7);
+        while(!(c&0x08)){
+            if (c & 0x01) {
+                return -EIO;
+            }
+            c = insb(0x1f7);
+        }
 
         for(int j=0;j<256;j++){
             *ptr = insw(0x1f0);
@@ -28,7 +38,7 @@ int disk_read_sector(int lba, int total, void* buf){
         }
     }
 
-    return res;
+    return 0;
 }
 
 void disk_search_and_init(){
