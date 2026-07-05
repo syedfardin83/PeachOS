@@ -8,3 +8,14 @@ void* memset(void* ptr, int c, size_t size){
     }
     return ptr;
 }
+
+int memcmp(void* p1, void* p2, int count){
+    char *c1, *c2;
+    for(int i=0;i<count;i++){
+        c1 = (char*)p1;
+        c2 = (char*)p2;
+
+        if(*c1 != *c2) return (c1[-1] > c2[-1])?1:-1;
+    }
+    return 0;
+}

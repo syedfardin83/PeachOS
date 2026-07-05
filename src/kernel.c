@@ -45,12 +45,6 @@ void terminal_initialize(){
     }
 }
 
-size_t strlen(const char* str){
-    size_t len=0;
-    while(str[len]) len++;
-    return len;
-}
-
 void print(const char* str){
     size_t len = strlen(str);
     for(int i=0;i<len;i++){
@@ -83,7 +77,7 @@ void kernel_main(){
     disk_search_and_init();
 
     // char* buf = kzalloc(512);
-    char buf[512]={0};
+    char buf[512];
     disk_read_sector(0,1,buf);
 
     int a = 10;
