@@ -4,6 +4,8 @@
 #include "kheap.h"
 #include "paging.h"
 #include "./disk/disk.h"
+#include "string.h"
+#include "pparser.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -84,5 +86,8 @@ void kernel_main(){
     a++;
     enable_interrupts(); 
     
+    struct path_root* root = pparser_parse("0:/bin/shell.bin",NULL);
+
+    if(root);
 
 }

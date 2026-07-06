@@ -13,6 +13,7 @@ struct path_part{
     struct path_part* next;
 };
 
-static int pparser_path_valid_format(const char* filename);
+struct path_root* pparser_parse(const char* path, const char* current_directory_path);
+void pparser_free(struct path_root* root);
 
 #endif
