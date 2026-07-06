@@ -13,4 +13,6 @@ struct path_part{
     struct path_part* next;
 };
 
+static int pparser_path_valid_format(const char* filename);
+
 #endif

@@ -9,3 +9,72 @@ static int pparser_path_valid_format(const char* filename){
     int len = strnlen(filename,PEACH_OS_MAX_PATH);
     return (len>=3 && is_digit(filename[0]) && memcmp(&filename[1],":/",2)==0);
 }
+
+static int pparser_get_drive_by_path(const char** ptr){
+    
+    if(!pparser_path_valid_format(*ptr))) return -EBADPATH;
+
+    int drive_no = to_numeric_digit(*ptr[0]);
+
+    *ptr += 3;
+
+    return drive_no;
+
+}
+
+static struct path_root* pparser_create_path_root(int drive_no){
+    struct path_root* path_r = (struct path_root*)kzalloc(sizeof(struct path_root));
+    path_r->driver_no = drive_no;
+    path_r->first = 0;
+    return path_r;
+}
+
+static const char* pparser_get_path_part(const char** ptr){
+    int i = 0;
+    char* result_path = kzalloc(PEACH_OS_MAX_PATH);
+    while(**ptr!='/' && **ptr!='\0'){
+        result_path[i]=**ptr;
+        *ptr+=1;
+        i++;
+    }
+
+    if(**ptr=='/') *ptr+=1;
+    
+    if(i==0){
+        kfree(result_path);
+        result_path=0;
+    }
+
+    return result_path;
+}
+
+struct path_part* pparser_parse_path_part(struct path_part* last_part, char** path){
+    char* path_part_str = pparser_get_path_part(path);
+
+    if(!path_part_str) return 0;
+
+    struct path_part* new_part = kzalloc(sizeof(struct path_part));
+
+    new_part->part = path_part_str;
+    new_part->next = 0x00;
+
+    if(last_part){
+        last_part->next = new_part;
+    }
+
+    return new_part;
+}
+
+void pparser_free(struct path_root* root){
+    struct path_part* curr_part = root->first;
+    while(curr_part){
+        struct path_part* next = curr_part->next;
+        kfree(curr_part->next);
+        kfree(curr_part);
+        curr_part=next; 
+    }
+
+    kfree(root);
+}
+
+struct path_root* pparser_parse(const )
