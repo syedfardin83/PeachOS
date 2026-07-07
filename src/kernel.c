@@ -86,6 +86,11 @@ void kernel_main(){
     a++;
     enable_interrupts(); 
     
+    int* ptr2 = kzalloc(512);
+    if(ptr2){
+        
+    }
+
     struct path_root* root = pparser_parse("0:/bin/shell.bin",NULL);
 
     if(root);

@@ -14,7 +14,7 @@ static int pparser_get_drive_by_path(const char** ptr){
     
     if(!pparser_path_valid_format(*ptr)) return -EBADPATH;
 
-    int drive_no = to_numeric_digit(*ptr[0]);
+    int drive_no = to_numeric_digit((*ptr)[0]);
 
     *ptr += 3;
 
@@ -43,8 +43,10 @@ static const char* pparser_get_path_part(const char** ptr){
     if(i==0){
         kfree(result_path);
         result_path=0;
-    }
+    }else{
 
+        result_path[i] = 0;
+    }
     return result_path;
 }
 
