@@ -68,15 +68,15 @@ void kernel_main(){
     idt_init();
 
     //  Paging setup
-    // kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
-    // paging_switch(kernel_chunk->entries);
+    kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
+    paging_switch(kernel_chunk->entries);
 
-    // char* ptr1 = kzalloc(4096);
-    // paging_set(kernel_chunk->entries,(void*)0x1000,(uint32_t)ptr1 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
+    char* ptr1 = kzalloc(4096);
+    paging_set(kernel_chunk->entries,(void*)0x1000,(uint32_t)ptr1 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
 
-    // paging_enable();
+    paging_enable();
 
-    // disk_search_and_init();
+    disk_search_and_init();
 
     // char* buf = kzalloc(512);
     // char buf[512];
@@ -89,11 +89,12 @@ void kernel_main(){
     int* ptr2 = kzalloc(512);
     
     if(ptr2);
+    
+
+    struct path_root* root = pparser_parse("0:/bin/shell.bin",NULL);
+
     int a = 10;
     a++;
-
-    // struct path_root* root = pparser_parse("0:/bin/shell.bin",NULL);
-
-    // if(root);
+    if(root);
 
 }

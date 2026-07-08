@@ -1,7 +1,7 @@
 # These are the elf intermidiate files which will contain debugging info as well
 FILES = ./build/kernel.asm.o ./build/io/io.asm.o ./build/kernel.o ./build/idt/idt.asm.o ./build/idt/idt.o ./build/memory/memory.o ./build/memory/heap/heap.o ./build/memory/heap/kheap.o ./build/memory/paging/paging.asm.o ./build/memory/paging/paging.o ./build/disk/disk.o ./build/string/string.o ./build/fs/pparser.o
 INCLUDES = -I./src -I./src/idt -I./src/memory -I./src/io -I./src/memory/heap -I./src/memory/paging -I./src/disk -I./src/string -I./src/fs
-FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fomit-frame-pointer -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc 
+FLAGS = -g -ffreestanding -falign-jumps -falign-functions -falign-labels -falign-loops -fstrength-reduce -fno-omit-frame-pointer -Wno-unused-function -fno-builtin -Werror -Wno-unused-label -Wno-cpp -Wno-unused-parameter -nostdlib -nostartfiles -nodefaultlibs -Wall -O0 -Iinc -m32
 
 all: ./bin/boot.bin ./bin/kernel.bin
 #combining boot.bin and kernel.bin
