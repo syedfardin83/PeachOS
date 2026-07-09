@@ -79,11 +79,11 @@ void kernel_main(){
     disk_search_and_init();
 
     // char* buf = kzalloc(512);
-    // char buf[512];
-    // disk_read_sector(0,1,buf);
+    char buf[512];
+    disk_read_sector(0,1,buf);
 
-    // int a = 10;
-    // a++;
+    int b = 10;
+    b++;
     enable_interrupts(); 
     
     int* ptr2 = kzalloc(512);
