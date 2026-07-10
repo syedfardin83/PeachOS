@@ -6,6 +6,7 @@
 #include "./disk/disk.h"
 #include "string.h"
 #include "pparser.h"
+#include "streamer.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -78,23 +79,15 @@ void kernel_main(){
 
     disk_search_and_init();
 
-    // char* buf = kzalloc(512);
-    char buf[512];
-    disk_read_sector(0,1,buf);
-
-    int b = 10;
-    b++;
     enable_interrupts(); 
     
-    int* ptr2 = kzalloc(512);
-    
-    if(ptr2);
-    
-
-    struct path_root* root = pparser_parse("0:/bin/shell.bin",NULL);
-
-    int a = 10;
+    struct disk_streamer* streamer = diskstreamer_new(0);
+    diskstreamer_seek(streamer,0x48a);
+    unsigned char c = 0;
+    diskstreamer_read(streamer,&c,1);
+    if(c);
+    int a =0;
     a++;
-    if(root);
+
 
 }

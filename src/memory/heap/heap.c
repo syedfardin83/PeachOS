@@ -49,7 +49,7 @@ static uint32_t heap_align_value_to_upper(uint32_t val){
     if((val%PEACH_OS_BLOCK_SIZE_BYTES)==0){
         return val;
     }
-    val=val-(val&PEACH_OS_BLOCK_SIZE_BYTES);
+    val=val-(val%PEACH_OS_BLOCK_SIZE_BYTES);
     val+=PEACH_OS_BLOCK_SIZE_BYTES;
     return val;
 
