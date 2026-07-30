@@ -4,6 +4,7 @@
 #include "status.h"
 #include "kheap.h"
 #include "disk.h"
+#include "memory.h"
 
 struct filesystem* filesystems[PEACH_OS_MAX_FILE_SYSTEMS];
 struct file_descriptor* file_descriptors[PEACH_OS_MAX_FILE_DESCRIPTORS];
@@ -48,7 +49,7 @@ static int fs_new_file_descriptor(struct file_descriptor** desc_out){
     for(int i=0;i<PEACH_OS_MAX_FILE_DESCRIPTORS;i++){
         if(file_descriptors[i]==0){
             //  Creating the new file descriptor
-            struct file_descriptor desc = kzalloc(sizeof(struct file_descriptor));
+            struct file_descriptor* desc = kzalloc(sizeof(struct file_descriptor));
             file_descriptors[i]=desc;
             desc->index = i+1;
             desc_out = &file_descriptors[i];
@@ -69,6 +70,14 @@ static struct file_descriptor* fs_get_file_descriptor(int desc_no){
 struct filesystem* fs_resolve(struct disk* disk){
     struct filesystem* fs = 0;
     for(int i=0;i<PEACH_OS_MAX_FILE_SYSTEMS;i++){
-
+        if(filesystems[i]!=0 && filesystems[i]->resolve(disk)==0){
+            fs=filesystems[i];
+            break;
+        }
     }
+    return fs;
+}
+
+int fopen(const char* filename, const char* mode){
+    return -EIO;
 }

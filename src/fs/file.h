@@ -1,8 +1,8 @@
 #ifndef FILE_H
-#include FILE_H
+#define FILE_H
 
 #include "pparser.h"
-#include "disk.h"
+// #include "disk.h"
 
 typedef unsigned int FILE_SEEK_MODE;
 enum{
@@ -19,6 +19,7 @@ enum{
     FILE_MODE_INVALID
 };
 
+struct disk;
 typedef void* (*FS_OPEN_FUNCTION)(struct disk* disk, struct path_part* path, FILE_MODE mode);
 typedef int (*FS_RESOLVE_FUNCTION)(struct disk* disk);
 

@@ -1,11 +1,15 @@
 #ifndef DISK_H
 #define DISK_H
 
+#include "file.h"
+
 typedef unsigned int PEACH_OS_DISK_TYPE;
 #define PEACH_OS_DISK_TYPE_REAL 0
 struct disk{
     PEACH_OS_DISK_TYPE type;
     int sector_size;
+
+    struct filesystem* filesystem;
 };
 
 int disk_read_sector(int lba, int total, void* buf);

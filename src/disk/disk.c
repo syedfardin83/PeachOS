@@ -45,6 +45,7 @@ void disk_search_and_init(){
     memset(&disk, 0, sizeof(disk));
     disk.sector_size=PEACH_OS_SECTOR_SIZE;
     disk.type=PEACH_OS_DISK_TYPE_REAL;
+    disk.filesystem=fs_resolve(&disk);
 }
 
 struct disk* disk_get(int index){
