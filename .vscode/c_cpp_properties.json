@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/src",
                 "${workspaceFolder}/src/idt",
-                "${workspaceFolder}/src/memory"
+                "${workspaceFolder}/src/memory",
+                "${workspaceFolder}/src/fs"
             ],
             "defines": [],
             "compilerPath": "",

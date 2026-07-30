@@ -13,4 +13,8 @@
 
 #define PEACH_OS_SECTOR_SIZE          512
 
+#define PEACH_OS_MAX_FILE_SYSTEMS         12
+#define PEACH_OS_MAX_FILE_DESCRIPTORS     12
+
+
 #endif
