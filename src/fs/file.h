@@ -19,8 +19,15 @@ enum{
     FILE_MODE_INVALID
 };
 
-void* (*FS_OPEN_FUNCTION)(struct disk* disk, struct path_part* path, FILE_MODE mode);
-int (*FS_RESOLVE_FUNCTION)(struct disk* disk);
+typedef void* (*FS_OPEN_FUNCTION)(struct disk* disk, struct path_part* path, FILE_MODE mode);
+typedef int (*FS_RESOLVE_FUNCTION)(struct disk* disk);
+
+struct filesystem{
+    FS_RESOLVE_FUNCTION resolve;
+    FS_OPEN_FUNCTION open;
+
+    char name[20];
+};
 
 
 
