@@ -7,6 +7,7 @@
 #include "string.h"
 #include "pparser.h"
 #include "streamer.h"
+#include "file.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -79,15 +80,8 @@ void kernel_main(){
 
     disk_search_and_init();
 
-    enable_interrupts(); 
-    
-    struct disk_streamer* streamer = diskstreamer_new(0);
-    diskstreamer_seek(streamer,0x48a);
-    unsigned char c = 0;
-    diskstreamer_read(streamer,&c,1);
-    if(c);
-    int a =0;
-    a++;
+    fs_init();
 
+    enable_interrupts(); 
 
 }

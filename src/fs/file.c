@@ -5,6 +5,7 @@
 #include "kheap.h"
 #include "disk.h"
 #include "memory.h"
+#include "fat16.h"
 
 struct filesystem* filesystems[PEACH_OS_MAX_FILE_SYSTEMS];
 struct file_descriptor* file_descriptors[PEACH_OS_MAX_FILE_DESCRIPTORS];
@@ -29,7 +30,7 @@ void fs_insert_filesystem(struct filesystem* filesystem){
 
 static void fs_static_load()
 {
-    //fs_insert_filesystem(fat16_init());
+    fs_insert_filesystem(fat16_init());
 }
 
 void fs_load()
@@ -67,6 +68,7 @@ static struct file_descriptor* fs_get_file_descriptor(int desc_no){
     return file_descriptors[desc_no-1];
 }
 
+//  Checks the type of filesystem used by a drive
 struct filesystem* fs_resolve(struct disk* disk){
     struct filesystem* fs = 0;
     for(int i=0;i<PEACH_OS_MAX_FILE_SYSTEMS;i++){
