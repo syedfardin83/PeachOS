@@ -76,11 +76,12 @@ void kernel_main(){
     char* ptr1 = kzalloc(4096);
     paging_set(kernel_chunk->entries,(void*)0x1000,(uint32_t)ptr1 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
 
-    paging_enable();
-
-    disk_search_and_init();
-
+    
     fs_init();
+    
+    disk_search_and_init();
+    
+    paging_enable();
 
     enable_interrupts(); 
 

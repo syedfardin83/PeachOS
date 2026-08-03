@@ -10,9 +10,12 @@
 struct filesystem* filesystems[PEACH_OS_MAX_FILE_SYSTEMS];
 struct file_descriptor* file_descriptors[PEACH_OS_MAX_FILE_DESCRIPTORS];
 
-struct filesystem** fs_get_free_filesystem(){
+static struct filesystem** fs_get_free_filesystem(){
     for(int i=0;i<PEACH_OS_MAX_FILE_SYSTEMS;i++){
-        if(filesystems[i]==0) return &filesystems[i];
+        if(filesystems[i]==0){
+            print("\nEmpty slot found");
+            return &filesystems[i];
+        }
     }
     return 0;
 }
@@ -53,7 +56,8 @@ static int fs_new_file_descriptor(struct file_descriptor** desc_out){
             struct file_descriptor* desc = kzalloc(sizeof(struct file_descriptor));
             file_descriptors[i]=desc;
             desc->index = i+1;
-            desc_out = &file_descriptors[i];
+            // desc_out = &file_descriptors[i];
+            *desc_out = desc;
             res=0;
             break;
         }
