@@ -1,3 +1,3 @@
-add-symbol-file ./build/kernelfull.o 0x100000
+add-symbol-file ./build/kernel.bin.elf
 set architecture i386
 target remote :1234

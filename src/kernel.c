@@ -7,7 +7,6 @@
 #include "string.h"
 #include "pparser.h"
 #include "streamer.h"
-#include "file.h"
 
 #include <stdint.h>
 #include <stddef.h>
@@ -69,17 +68,13 @@ void kernel_main(){
     // Initialize IDT
     idt_init();
 
-    //  Paging setup
-    kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
-    paging_switch(kernel_chunk->entries);
-
-    char* ptr1 = kzalloc(4096);
-    paging_set(kernel_chunk->entries,(void*)0x1000,(uint32_t)ptr1 | PAGING_ACCESS_FROM_ALL | PAGING_IS_PRESENT | PAGING_IS_WRITABLE);
-
-    
     fs_init();
     
     disk_search_and_init();
+    
+    //  Paging setup
+    kernel_chunk= paging_new_4gb(PAGING_IS_WRITABLE|PAGING_IS_PRESENT|PAGING_ACCESS_FROM_ALL);
+    paging_switch(kernel_chunk->entries);
     
     paging_enable();
 
